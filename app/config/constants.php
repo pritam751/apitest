@@ -11,6 +11,10 @@ return array(
 		'OK' => '200',
 		'CREATED' => '201'
 	),
+    'deviceTypes' => array(
+        'ios',
+        'android'
+    ),	
 	'errorMessages' => array(
 		
         'parameter_missing' => array(
