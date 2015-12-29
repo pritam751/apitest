@@ -1,9 +1,4 @@
 <?php
-/**
- * Class : ApiBaseService
- * Purpose : Used to perform some basic operations like setting offset and count, validation for inputdata
- * @example setOffsetAndCount(), validateInputData()
- */
 
 namespace app\services;
 
@@ -30,24 +25,6 @@ class ApiBaseService
         $this->loggedInUserId = $userId;
     }
 
-    /**
-     * To set offset and count
-     * @param array data
-     */
-    public function setOffsetAndCount($data)
-    {
-        if (isset($data['offset']) && !empty($data['count'])) {
-            if (is_numeric($data['offset']) && is_numeric($data['count'])) {
-                $this->offset = $data['offset'];
-                $this->count = $data['count'];
-            } else {
-                $this->messages['error'] = Config::get('constants.errorMessages.invalid_offset_type');
-            }
-        } else {
-            $this->offset = $this->count = NULL;
-        }
-    }
-    
     /**
      * To validate data coming with request
      * @param array $data

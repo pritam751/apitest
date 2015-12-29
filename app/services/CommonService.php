@@ -31,48 +31,8 @@ class CommonService
         $this->errorTokenMissing = Config::get('constants.errorMessages.invalid_token');
     }
     
-    /**
-     * To get video rotation
-     * @param string $videoPath
-     * @return array $rotation
-     */
-    public static function getVideoRotation($videoPath)
-    {
-        $output = shell_exec("exiftool $videoPath | grep Rotation");
-        $rotation = explode(":", $output);
-
-        return $rotation;
-    }
-
-    /**
-     * Generate thumb image from video file
-     * @param string $videoPath
-     * @param string $videoName
-     * @param string $thumbPath
-     * @reutrn string $imageName
-     */
-    public static function generateVideoThumbnail($videoPath, $videoName, $thumbPath)
-    {
-	//video dir
-	$video = $videoPath . $videoName;
-        $name = pathinfo($video, PATHINFO_FILENAME);
-        $imageName = 'thumb_' . Config::get('constants.VIDEO_THUMBNAIL_SIZE') . '_' . $name . '.jpeg';
-	// path to save the image
-	$image = $thumbPath . $imageName;
-        $rotation = self::getVideoRotation($video);
-        $tempVodeo = $videoPath . 'test_rotated.mp4';
-        if (!empty($rotation) && !empty($rotation[1]) && trim($rotation[1]) == 90) {
-            shell_exec("avconv -i $video -vf   transpose=1  -strict experimental $tempVodeo");
-            $cmd = "avconv -i $tempVodeo -r 1 -vf scale=iw/1:ih/1 -f image2 $image";
-        } else {
-            $cmd = "avconv -i $video -r 1 -vf scale=iw/1:ih/1 -f image2 $image";
-        }
-
-        shell_exec($cmd);
-        @unlink($tempVodeo);        
-
-        return $imageName;
-    }
+			
+			
 
     /**
      * Applying video compressing. For compression of video avocnv extension

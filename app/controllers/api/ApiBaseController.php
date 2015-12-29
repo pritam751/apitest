@@ -1,9 +1,4 @@
 <?php
-/**
- * Class : ApiBaseController
- * Purpose : Used to validate the requestes.
- * @example validateRequestToken()
- */
 
 namespace app\controllers\api;
 
@@ -48,7 +43,7 @@ class ApiBaseController extends \BaseController
         if (isset($tokenData['userId'])) {
             $object->userId = $tokenData['userId'];
         }
-
+		
         if (empty($checkIsAuthorized)) {
             if (!$tokenData['isAccessTokenExists']) {
                 $object->responseData['error'] = $this->errorParamMissing;
